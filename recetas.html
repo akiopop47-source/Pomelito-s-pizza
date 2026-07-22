@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Recetas | Pomelito Pizza's</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h1 class="titulo-recetas"></h1>
+
+<h2 class="bienvenida">¡Bienvenido a la cocina!</h2>
+
+<p>Aquí aprenderás a preparar deliciosas pizzas.</p>
+
+<a href="index.html">
+<button>🏠 Volver al inicio</button>
+</a>
+
+<p></p>
+<button onclick="mostrarReceta()">Receta de Pizza Muzzarella</button>
+
+
+<div id="receta">
+
+    <h2>🍕 Pizza Muzzarella</h2>
+    <img src="https://cdn.pixabay.com/photo/2016/02/04/16/16/pizza-1179404_1280.jpg" width="200" height="200">
+    <p>Ingredientes:</p>
+    <ul>
+    <li>Masa de pizza</li>
+    <li>Tomate triturado</li>
+    <li>Queso mozzarella</li>
+    <li>Hojas de albahaca fresca</li>
+</ul>
+    <p>Instrucciones:</p>
+    <ol>
+        <li>Extiende la masa de pizza.</li>
+        <li>Unta el tomate sobre la masa.</li>
+        <li>Agrega la mozzarella y la albahaca.</li>
+        <li>Hornea a 200°C durante 15 minutos.</li>
+    </ol>
+    <button onclick="cerrarReceta()">Cerrar Receta</button>
+</div>
+
+<script>
+
+function mostrarReceta(){document.getElementById("receta").style.display="block";}
+
+function cerrarReceta(){document.getElementById("receta").style.display="none";}
+
+
+</script>
+
+</div>
+
+</body>
+
+</html>

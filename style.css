@@ -1,0 +1,84 @@
+h1 {
+    color: red;
+}
+
+body {
+    /* Tu color cremita de base */
+    background-color: #fffdd0; 
+    
+    /* El truco: dos capas de líneas rojas transparentes que se cruzan */
+    background-image: 
+        linear-gradient(90deg, rgba(230, 0, 0, 0.12) 50%, transparent 50%),
+        linear-gradient(rgba(230, 0, 0, 0.12) 50%, transparent 50%);
+    
+    /* Esto define el tamaño de los cuadros del mantel (60px de ancho y alto) */
+    background-size: 60px 60px; 
+    
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    border-radius:15px;
+    background-color:rgb(19,179,67);
+    font-weight:bold;
+    font-size:25px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background-color:green;
+    transform:scale(1.05);
+}
+
+img{
+    border-radius:20px;
+    margin-bottom:20px;
+}
+
+.contenedor{
+    width: 70%;
+    margin: 40px auto;
+    background-color: #fff8dc;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.titulo-recetas{
+    font-family:Georgia;
+    font-style:italic;
+}
+
+ul{
+    list-style-type: "° ";
+}
+
+h2{
+    color: orangered;
+}
+
+.aviso{
+    color: blueviolet;
+}
+
+#receta{
+    display: none;
+    margin-top: 25px;
+}
+
+h3{
+    line-height:1.6;
+}
+
+.bienvenida{
+    color:orangered;
+    font-size:30px;
+    font-weight:bold;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+#receta{
+    display:none;
+    margin-top:25px;
+}
