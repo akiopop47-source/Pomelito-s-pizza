@@ -1,0 +1,173 @@
+<!DOCTYPE html> 
+<html lang="es">
+
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat con Pomi 🤖</title> 
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+    <style>
+        .caja-chat {
+            background-color: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: left;
+        }
+        .historial {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .msg-pomi {
+            background-color: #e1f5fe;
+            color: #0277bd;
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        .msg-usuario {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin: 5px 0;
+            text-align: right;
+        }
+        .controles-input {
+            display: flex;
+            gap: 10px;
+        }
+        .controles-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head> 
+
+<body>
+
+<div class="contenedor"> 
+    <h1>🤖 Chat interactivo con Pomi</h1>
+    
+    <div class="caja-chat">
+        <div id="historial-chat" class="historial">
+            <div class="msg-pomi">Pomi: ¡Hola! Select language / Elige idioma:<br>1. English<br>2. Español</div>
+        </div>
+
+        <div class="controles-input">
+            <input type="text" id="user-input" placeholder="Escribe aquí tu respuesta...">
+            <button id="btn-enviar" py-click="procesar_chat">Enviar 🚀</button>
+        </div>
+    </div>
+
+    <a href="index.html"> 
+        <button>⬅️ Volver al Inicio</button> 
+    </a> 
+</div> 
+
+<
+<script type="py">
+from pyscript import document
+
+
+paso = 1
+idioma_elegido = ""
+opcion_elegida = ""
+
+def agregar_mensaje(texto, es_pomi=True):
+    historial = document.getElementById("historial-chat")
+    nuevo_msg = document.createElement("div")
+    
+    if es_pomi:
+        nuevo_msg.className = "msg-pomi"
+        nuevo_msg.innerText = f"Pomi: {texto}"
+    else:
+        nuevo_msg.className = "msg-usuario"
+        nuevo_msg.innerText = f"Tú: {texto}"
+        
+    historial.appendChild(nuevo_msg)
+    historial.scrollTop = historial.scrollHeight
+
+def procesar_chat(event):
+    global paso, idioma_elegido, opcion_elegida
+    
+    input_box = document.getElementById("user-input")
+    texto_usuario = input_box.value.strip()
+
+    if not texto_usuario:
+        return
+
+
+    agregar_mensaje(texto_usuario, es_pomi=False)
+    input_box.value = ""  # Limpiar la casilla
+
+    if paso == 1:
+        if texto_usuario in ["1", "2"]:
+            idioma_elegido = texto_usuario
+            paso = 2
+            if idioma_elegido == "1":
+                agregar_mensaje("Awesome! How can I help you today?\n1. How this page works\n2. What is this page for\n3. Leave a comment")
+            else:
+                agregar_mensaje("¡Buenísimo! ¿En qué te ayudo hoy?\n1. Cómo funciona esta página\n2. Para qué sirve esta página\n3. Dejar un comentario")
+        else:
+            agregar_mensaje("Por favor responde 1 (English) o 2 (Español).")
+
+    elif paso == 2:
+        opcion_elegida = texto_usuario
+        
+        if idioma_elegido == "1":
+            if opcion_elegida == "1":
+                agregar_mensaje("This page works in a very simple way: check our recipes and have fun!")
+                reiniciar_chat("Select language / Elige idioma:\n1. English\n2. Español")
+            elif opcion_elegida == "2":
+                agregar_mensaje("I created this page to build an internet refuge to have fun :D")
+                reiniciar_chat("Select language / Elige idioma:\n1. English\n2. Español")
+            elif opcion_elegida == "3":
+                paso = 3
+                agregar_mensaje("Please write your comment for Pomelito:")
+            else:
+                agregar_mensaje("Please enter 1, 2 or 3.")
+
+        elif idioma_elegido == "2":
+            if opcion_elegida == "1":
+                agregar_mensaje("Esta página funciona de un modo muy sencillo: revisá nuestras recetas y disfrutá del refugio.")
+                reiniciar_chat("Selecciona un idioma para empezar de nuevo:\n1. English\n2. Español")
+            elif opcion_elegida == "2":
+                agregar_mensaje("Creé esto para hacer un refugio en internet para pasarla bien :D")
+                reiniciar_chat("Selecciona un idioma para empezar de nuevo:\n1. English\n2. Español")
+            elif opcion_elegida == "3":
+                paso = 3
+                agregar_mensaje("Escribí tu comentario para Pomelito:")
+            else:
+                agregar_mensaje("Ingresá una opción válida (1, 2 o 3).")
+
+    elif paso == 3:
+        if idioma_elegido == "1":
+            agregar_mensaje(f"Thanks for your comment: '{texto_usuario}'!")
+            reiniciar_chat("Select language / Elige idioma:\n1. English\n2. Español")
+        else:
+            agregar_mensaje(f"¡Gracias por tu comentario: '{texto_usuario}'!")
+            reiniciar_chat("Selecciona un idioma para empezar de nuevo:\n1. English\n2. Español")
+
+def reiniciar_chat(mensaje_inicio):
+    global paso
+    paso = 1
+    agregar_mensaje(f"--- Chat finalizado ---\n{mensaje_inicio}")
+</script>
+
+</body> 
+</html>
